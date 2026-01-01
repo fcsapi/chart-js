@@ -1,6 +1,6 @@
 {
   "name": "fcsapi-chart",
-  "version": "1.0.0",
+  "version": "4.0.0",
   "description": "Advanced JavaScript charting library for Forex, Cryptocurrency, and Stock market data from FCS API",
   "main": "src/fcsapi-chart.js",
   "module": "src/fcsapi-chart.js",
