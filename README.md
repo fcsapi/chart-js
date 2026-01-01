@@ -4,7 +4,6 @@ Advanced **JavaScript** charting library for **Forex**, **Cryptocurrency**, and 
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-yellow.svg)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
-[![npm version](https://img.shields.io/npm/v/fcsapi-chart.svg)](https://www.npmjs.com/package/fcsapi-chart)
 
 ## Features
 
@@ -26,20 +25,6 @@ Advanced **JavaScript** charting library for **Forex**, **Cryptocurrency**, and 
 
 <!-- JavaScript -->
 <script src="https://cdn.jsdelivr.net/gh/fcsapi/chart-js/src/fcsapi-chart.js"></script>
-```
-
-### npm
-
-```bash
-npm install fcsapi-chart
-```
-
-```javascript
-// ES6 Module
-import { FCSAPIChart } from 'fcsapi-chart';
-
-// CommonJS
-const { FCSAPIChart } = require('fcsapi-chart');
 ```
 
 ### Clone Repository
