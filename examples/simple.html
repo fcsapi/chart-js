@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FCSAPI Chart - Simple Example</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body {
+            font-family: Arial, sans-serif;
+            background: #0d0e14;
+            height: 100%;
+            overflow: hidden;
+        }
+    </style>
+
+    <!-- Load from GitHub CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fcsapi/chart-js/src/fcsapi-chart.css">
+
+</head>
+<body>
+    <div id="fcs_chartparent">
+        <div id="fcs_chart"></div>
+    </div>
+
+    <!-- Load from GitHub CDN -->
+    <script src="https://cdn.jsdelivr.net/gh/fcsapi/chart-js/src/fcsapi-chart.js"></script>
+
+    <script>
+        // Mobile height fix
+        function setMobileHeight() {
+            document.getElementById('fcs_chartparent').style.height = window.innerHeight + 'px';
+        }
+        setMobileHeight();
+        window.addEventListener('resize', setMobileHeight);
+
+        // ============================================================
+        // SIMPLE CHART - Minimal Configuration
+        // ============================================================
+        // Only required settings + most common options
+        // For all options, see index.html (Full Example)
+
+        const chart = new FCSAPIChart({
+            // REQUIRED (3 settings)
+            container: document.getElementById('fcs_chart'),
+            parentid: 'fcs_chartparent',
+            accessKey: 'YOUR_ACCESS_KEY',        // Get from fcsapi.com/dashboard
+
+            // OPTIONAL - Common settings
+            symbol: 'BINANCE:BTCUSDT',           // Symbol to display
+            period: '1H',                         // Timeframe
+            theme: 'dark'                         // 'dark' or 'light'
+        });
+
+        // That's it! The chart is now ready with all default features enabled.
+
+        // ============================================================
+        // COMMON API METHODS
+        // ============================================================
+
+        // Change symbol
+        // chart.setSymbol('NASDAQ:AAPL');
+        // chart.setSymbol('FX:EURUSD');
+
+        // Change timeframe
+        // chart.setPeriod('1D');
+        // chart.setPeriod('15m');
+
+        // Switch theme
+        // chart.setTheme('light');
+
+    </script>
+</body>
+</html>

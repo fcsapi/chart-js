@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>FCSAPI Chart - Full Configuration Example</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            font-family: Arial, sans-serif;
+            background: #0d0e14;
+            color: #d1d4dc;
+            height: 100%;
+            overflow: hidden;
+        }
+    </style>
+
+    <!-- Load from GitHub CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fcsapi/chart-js/src/fcsapi-chart.css">
+
+</head>
+<body>
+        <div id="fcs_chartparent">
+            <div id="fcs_chart"></div>
+        </div>
+
+    <!-- Load from GitHub CDN -->
+    <script src="https://cdn.jsdelivr.net/gh/fcsapi/chart-js/src/fcsapi-chart.js"></script>
+
+    <script>
+        // Mobile viewport height fix - for browsers without dvh support
+        function setMobileHeight() {
+            const vh = window.innerHeight;
+            document.getElementById('fcs_chartparent').style.height = vh + 'px';
+        }
+        setMobileHeight();
+        window.addEventListener('resize', setMobileHeight);
+
+        // ============================================================
+        // FCSAPI CHART - FULL CONFIGURATION OPTIONS
+        // ============================================================
+        // All available options with descriptions and default values
+        // Remove or comment out options you don't need (defaults will be used)
+
+        const chart = new FCSAPIChart({
+            // REQUIRED SETTINGS
+            // HTML & AUTHENTICATION
+            container: document.getElementById('fcs_chart'), // Required: Chart container element
+            parentid: 'fcs_chartparent',                     // Required: Parent container ID for toolbar/sidebar
+            accessKey: 'YOUR_ACCESS_KEY',                    // Your API access key (get from fcsapi.com/dashboard)
+            socketApiKey: 'YOUR_SOCKET_KEY',                 // WebSocket API key for live data (get from fcsapi.com/dashboard)
+            // socketUrl: 'wss://fcsapi.com/socket4/ws/', // Custom WebSocket URL (optional)
+
+            // ========================================
+            // CORE CHART SETTINGS
+            symbol: 'BINANCE:BTCUSDT',            // Default symbol to load (format: EXCHANGE:SYMBOL)
+            period: '1H',                         // Default timeframe: 1m, 5m, 15m, 30m, 1h, 4h, 1D, 1W, 1M
+            length: 600,                          // Number of candles to load (max depends on API plan)
+            enableCache: true,                    // Cache user's last symbol/period/settings in localStorage
+            changeURL: true,                     // Update browser URL with symbol/period (shareable links)
+
+            // ========================================
+            // DISPLAY MODE
+            displayMode: 'normal',                // 'normal' = full UI | 'chartonly' = hide all UI except chart
+
+            // ========================================
+            // CHART APPEARANCE
+            theme: 'light',                        // 'dark' | 'light'
+            defaultChartType: 'candlestick',      // candlestick | bars | line | area | hollow | heikin-ashi | high-low | volume-candles
+
+            // ========================================
+            // UI LAYOUT TOGGLES
+            enableSidebar: true,                  // Left sidebar with drawing tools
+            enableToolbar: true,                  // Top toolbar with all controls
+            enableRangeSelector: true,            // Bottom time range selector bar
+
+            // ========================================
+            // TOOLBAR CONTROLS
+            enableSearch: true,                   // Symbol search button
+            enableIndicators: true,               // Indicators button and panel
+            enableMultiChart: true,               // Multi-chart layouts button
+            enableReplay: true,                   // Replay mode button and functionality
+            enableCapture: true,                  // Screenshot/export button
+            enableUndoRedo: true,                 // Undo/Redo buttons (Ctrl+Z, Ctrl+Y)
+            enableTemplates: true,                // Template save/load functionality
+            enableSettings: true,                 // Settings gear button
+            enableSymbolInfo: true,               // Symbol info button (shows profile/stats)
+            enableChartTypeSelector: true,        // Chart type dropdown selector
+            enableTimeframeSelector: true,        // Timeframe/period dropdown selector
+
+            // ========================================
+            // CHART FEATURES
+            // ========================================
+            enableSocket: true,                   // WebSocket for live price updates
+            enableContextMenu: true,              // Right-click context menu
+            enableDrawingTools: true,             // Drawing tools functionality
+
+            // ========================================
+            // GRID & CROSSHAIR
+            enableGrid: false,                    // Show grid lines on chart
+            enableCrosshair: true,                // Show crosshair on mouse hover
+            enableCrosshairLabels: true,          // Show price/time labels on crosshair
+
+            // ========================================
+            // PRICE LABELS & LINES
+            enablePriceLine: true,                // Current price horizontal line and label
+            enableAskBidLines: false,              // Ask/Bid price lines (requires socket)
+            enableAskPriceLabels: true,           // Ask price label on price axis
+            enableBidPriceLabels: true,           // Bid price label on price axis
+            enableHighLowLabels: true,            // High/Low price labels on chart
+
+            // ========================================
+            // INDICATOR SETTINGS
+            enableIndicatorLabels: true,          // Show indicator name labels on chart
+            enableOHLCBar: true,                  // Show OHLC values bar (top-left)
+
+            // ========================================
+            // PRICE LABEL COLORS (hex values)
+            askLabelColor: '#00bcd4',             // Ask price label color (cyan)
+            bidLabelColor: '#ff9800',             // Bid price label color (orange)
+            lastPriceLabelColor: null,            // Last price label (null = use candle up/down color)
+
+            // ========================================
+            // INDICATOR PANEL SETTINGS
+            indicatorPanelBgColor: null,          // Panel background (null = use chart theme background)
+
+            // ========================================
+            // SCALE SETTINGS
+            autoScale: true,                      // Auto-scale price verticle axis to visible data
+            logScale: false,                      // Logarithmic price scale
+
+            // ========================================
+            // DRAWING SETTINGS
+            // ========================================
+            defaultMagnetMode: false,             // Default false, state of magnet mode for better user experience
+
+            // ========================================
+            // TIMEZONE
+            // ========================================
+            timezone: 'local',                    // 'local' | 'UTC' | '+05:00' | '-08:00' etc.
+
+        });
+
+        // ============================================================
+        // API METHODS REFERENCE
+        // ============================================================
+        // Use these methods to control the chart programmatically
+
+        // --- Symbol & Period ---
+        // chart.setSymbol('NASDAQ:AAPL');       // Change symbol (format: EXCHANGE:SYMBOL)
+        // chart.setSymbol('FX:EURUSD');         // Forex example
+        // chart.setSymbol('BINANCE:ETHUSDT');   // Crypto example
+        // chart.setPeriod('4H');                // Change timeframe
+        // chart.setPeriod('1D');                // Daily timeframe
+
+        // --- Theme & Chart Type ---
+        // chart.setTheme('light');              // Switch to light theme
+        // chart.setTheme('dark');               // Switch to dark theme
+        // chart.setChartType('line');           // Line chart
+        // chart.setChartType('area');           // Area chart
+        // chart.setChartType('heikin-ashi');    // Heikin-Ashi candles
+        // chart.setChartType('bars');           // OHLC bars
+        // chart.setChartType('renko');          // Renko bricks
+
+        // --- Export ---
+        // const imageData = chart.exportImage(); // Get chart as base64 PNG
+        // Download example:
+        // const link = document.createElement('a');
+        // link.download = 'chart.png';
+        // link.href = chart.exportImage();
+        // link.click();
+
+        // --- Resize ---
+        // chart.resize();                       // Recalculate dimensions after container resize
+
+        // --- Cleanup ---
+        // chart.destroy();                      // Remove chart and cleanup resources
+
+        // ============================================================
+        // HORIZONTAL LINE API (for Brokers - TP/SL/Entry lines)
+        // ============================================================
+        // Add Take Profit line
+        // const tpLine = await chart.addHorizontalLine({
+        //     price: 45000,
+        //     color: '#4caf50',
+        //     label: 'TP',
+        //     style: 'dashed'
+        // });
+
+        // Add Stop Loss line
+        // const slLine = await chart.addHorizontalLine({
+        //     price: 42000,
+        //     color: '#f44336',
+        //     label: 'SL',
+        //     style: 'dashed'
+        // });
+
+        // Add Entry line
+        // const entryLine = await chart.addHorizontalLine({
+        //     price: 43500,
+        //     color: '#2196f3',
+        //     label: 'Entry',
+        //     style: 'solid',
+        //     lineWidth: 2
+        // });
+
+        // Update line price
+        // chart.updateHorizontalLine(tpLine, { price: 46000 });
+
+        // Remove line
+        // chart.removeHorizontalLine(tpLine);
+
+        // Get all lines
+        // const lines = chart.getHorizontalLines();
+
+        // Clear all lines
+        // chart.clearHorizontalLines();
+
+        console.log('Chart initialized:', chart);
+
+        // Debug info after data loads
+        setTimeout(() => {
+            console.log('=== Chart Debug Info ===');
+            console.log('Data length:', chart.engine.data.length);
+            console.log('Socket status:', chart.engine.socketManager?.getConnectionStatus());
+            console.log('Theme:', chart.engine.themeManager?.currentTheme);
+        }, 2000);
+
+    </script>
+</body>
+</html>

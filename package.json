@@ -1,0 +1,42 @@
+{
+  "name": "fcsapi-chart",
+  "version": "1.0.0",
+  "description": "Advanced JavaScript charting library for Forex, Cryptocurrency, and Stock market data from FCS API",
+  "main": "src/fcsapi-chart.js",
+  "module": "src/fcsapi-chart.js",
+  "types": "src/fcsapi-chart.d.ts",
+  "files": [
+    "src/fcsapi-chart.js",
+    "src/fcsapi-chart.css",
+    "src/chunks/"
+  ],
+  "scripts": {
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fcsapi/chart-js.git"
+  },
+  "keywords": [
+    "chart",
+    "charting",
+    "trading",
+    "forex",
+    "crypto",
+    "cryptocurrency",
+    "stock",
+    "financial",
+    "candlestick",
+    "technical-analysis",
+    "indicators",
+    "fcsapi",
+    "websocket",
+    "real-time"
+  ],
+  "author": "FCS API <support@fcsapi.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fcsapi/chart-js/issues"
+  },
+  "homepage": "https://fcsapi.com"
+}
