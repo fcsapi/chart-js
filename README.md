@@ -21,10 +21,10 @@ Advanced **JavaScript** charting library for **Forex**, **Cryptocurrency**, and 
 
 ```html
 <!-- CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fcsapi/chart-js/src/fcsapi-chart.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fcsapi/chart-js@4.0.1/src/fcsapi-chart.css">
 
 <!-- JavaScript -->
-<script src="https://cdn.jsdelivr.net/gh/fcsapi/chart-js/src/fcsapi-chart.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fcsapi/chart-js@4.0.1/src/fcsapi-chart.js"></script>
 ```
 
 ### Clone Repository
@@ -48,7 +48,7 @@ cd chart-js
 <html>
 <head>
     <title>FCS Chart</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fcsapi/chart-js/src/fcsapi-chart.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fcsapi/chart-js@4.0.1/src/fcsapi-chart.css">
     <style>
         #fcs_chartparent { width: 100%; height: 100vh; }
     </style>
@@ -58,7 +58,7 @@ cd chart-js
         <div id="fcs_chart"></div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/gh/fcsapi/chart-js/src/fcsapi-chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/fcsapi/chart-js@4.0.1/src/fcsapi-chart.js"></script>
     <script>
         const chart = new FCSAPIChart({
             container: document.getElementById('fcs_chart'),
