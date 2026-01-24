@@ -1,1 +1,1 @@
-"use strict";(self.webpackChunkfcsapi_chart=self.webpackChunkfcsapi_chart||[]).push([["src_indicators_technicals_pine-index_js"],{5407:(c,s,a)=>{a.r(s),a.d(s,{default:()=>t});var e=a(8618);const t={Adx,Volume:e.default}}}]);
+"use strict";(self.webpackChunkfcsapi_chart=self.webpackChunkfcsapi_chart||[]).push([["src_indicators_technicals_pine-index_js"],{5407:(c,s,a)=>{a.r(s),a.d(s,{default:()=>i});var e=a(8618);const i={Adx,Volume:e.A}}}]);
