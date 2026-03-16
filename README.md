@@ -32,12 +32,13 @@ Advanced **JavaScript** charting library for **Forex**, **Cryptocurrency**, and 
 | Version | Status |
 |---------|--------|
 | `@latest` | Recommended - Always up to date |
-| `@4.0.1` | Stable |
+| `@4.0.2` | Stable |
+| `@4.0.1` | Previous stable |
 
 ```html
 <!-- Using specific version -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fcsapi/chart-js@4.0.1/src/fcsapi-chart.css">
-<script src="https://cdn.jsdelivr.net/gh/fcsapi/chart-js@4.0.1/src/fcsapi-chart.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fcsapi/chart-js@4.0.2/src/fcsapi-chart.css">
+<script src="https://cdn.jsdelivr.net/gh/fcsapi/chart-js@4.0.2/src/fcsapi-chart.js"></script>
 ```
 
 ### Clone Repository
