@@ -52,8 +52,8 @@
             // HTML & AUTHENTICATION
             container: document.getElementById('fcs_chart'), // Required: Chart container element
             parentid: 'fcs_chartparent',                     // Required: Parent container ID for toolbar/sidebar
-            accessKey: 'YOUR_ACCESS_KEY',                    // Your API access key (get from fcsapi.com/dashboard)
-            socketApiKey: 'YOUR_SOCKET_KEY',                 // WebSocket API key for live data (get from fcsapi.com/dashboard)
+            //accessKey: 'YOUR_ACCESS_KEY',                    // Your API access key (get from fcsapi.com/dashboard)
+            //socketApiKey: 'YOUR_SOCKET_KEY',                 // WebSocket API key for live data (get from fcsapi.com/dashboard)
             // socketUrl: 'wss://fcsapi.com/socket4/ws/', // Custom WebSocket URL (optional)
 
             // ========================================
@@ -78,6 +78,14 @@
             enableSidebar: true,                  // Left sidebar with drawing tools
             enableToolbar: true,                  // Top toolbar with all controls
             enableRangeSelector: true,            // Bottom time range selector bar
+
+            // ========================================
+            // SYMBOL SEARCH FILTERS
+            // Control which tabs and symbols appear in search modal
+            // Tabs: 'forex', 'crypto', 'stock', 'fund', 'futures', 'indices', 'bonds', 'economy', 'dex', 'options'
+            // searchModalTabs: ['forex', 'crypto'],           // Only show these tabs (null = all)
+            // searchAllowSymbols: ['BINANCE:BTCUSDT', 'ONA:EURUSD'],  // Only these symbols appear in results (null = all)
+            // searchExcludeSymbols: ['BINANCE:DOGEUSDT'],     // Hide these symbols from results (null = none)
 
             // ========================================
             // TOOLBAR CONTROLS
