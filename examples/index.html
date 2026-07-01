@@ -52,9 +52,13 @@
             // HTML & AUTHENTICATION
             container: document.getElementById('fcs_chart'), // Required: Chart container element
             parentid: 'fcs_chartparent',                     // Required: Parent container ID for toolbar/sidebar
-            //accessKey: 'YOUR_ACCESS_KEY',                    // Your API access key (get from fcsapi.com/dashboard)
-            //socketApiKey: 'YOUR_SOCKET_KEY',                 // WebSocket API key for live data (get from fcsapi.com/dashboard)
-            // socketUrl: 'wss://fcsapi.com/socket4/ws/', // Custom WebSocket URL (optional)
+            // accessKey: 'yourKey',                     //   Leave empty or comment if want to use free chart            // Your API access key (get from fcsapi.com)
+            // publicKey: 'your_public_key',     // ENTER YOUR PUBLIC KEY TO Hide ACCESSkeY IN  user network                // Your API access key (get from fcsapi.com)
+            
+            //Websocket key is limited to 2second update and limited connection per IP, for faster udpate and more connection you need to purcahse it.
+            //socketApiKey: 'vunelix_widget',             // WebSocket API key for live data
+
+            //socketUrl: 'ws://localhost:4001/ws', // Custom WebSocket URL (optional)
 
             // ========================================
             // CORE CHART SETTINGS
@@ -82,13 +86,13 @@
             // ========================================
             // SYMBOL SEARCH FILTERS
             // Control which tabs and symbols appear in search modal
-            // Tabs: 'forex', 'crypto', 'stock', 'fund', 'futures', 'indices', 'bonds', 'economy', 'dex', 'options'
-            // searchModalTabs: ['forex', 'crypto'],           // Only show these tabs (null = all)
+            // Tabs keys: 'fav','forex', 'crypto','commodity', 'stock','dr', 'fund', 'futures', 'indices', 'dex'
+            // searchModalTabs: {'fav':'Fav','all':'All List','forex':'Forex', 'crypto':'Crypto','commodity':'commodity','stock':'Stocks', 'fund':'Funds', 'futures':'Future', 'indices':'Indicies','dex':'Dex','dr':'Depositary Receipts'},           // Only show these tabs (null = all)
             // searchAllowSymbols: ['BINANCE:BTCUSDT', 'ONA:EURUSD'],  // Only these symbols appear in results (null = all)
             // searchExcludeSymbols: ['BINANCE:DOGEUSDT'],     // Hide these symbols from results (null = none)
-
+            searchModalTabs: {'fav':'Fav','all':'All List','forex':'Forex', 'crypto':'Crypto','stock':'Stocks','dr':'Drs', 'fund':'Funds', 'futures':'Future', 'indices':'Indicies','dex':'Dex'},  
             // ========================================
-            // TOOLBAR CONTROLS
+            // TOOLBAR  CONTROLS
             enableSearch: true,                   // Symbol search button
             enableIndicators: true,               // Indicators button and panel
             enableMultiChart: true,               // Multi-chart layouts button
@@ -100,7 +104,8 @@
             enableSymbolInfo: true,               // Symbol info button (shows profile/stats)
             enableChartTypeSelector: true,        // Chart type dropdown selector
             enableTimeframeSelector: true,        // Timeframe/period dropdown selector
-
+            displayExchangeName:true,               // when false: Hide exchange name from info overlay
+            
             // ========================================
             // CHART FEATURES
             // ========================================
