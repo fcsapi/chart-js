@@ -17,3 +17,10 @@
 # Git
 .gitattributes text eol=lf
 .gitignore text eol=lf
+
+# Images - never line-ending normalize binary assets (README screenshots)
+*.webp binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
