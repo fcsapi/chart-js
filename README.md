@@ -8,6 +8,20 @@ Lightweight, high-performance **JavaScript charting library** for building inter
 
 > Build professional trading charts for your website, trading platform, or broker application with just a few lines of code. No frameworks required — works with vanilla JavaScript, React, Vue, Angular, or any web stack.
 
+<p align="center">
+  <a href="https://fcsapi.com/chart/index.html">
+    <img src="https://raw.githubusercontent.com/fcsapi/chart-js/master/assets/chart-preview.webp" alt="FCS Chart - JavaScript candlestick chart for forex, crypto and stocks with technical indicators and drawing tools" width="900">
+  </a>
+  <br>
+  <em>Click the screenshot to open the live demo</em>
+</p>
+
+## Links
+
+- **Live Demo:** [fcsapi.com/chart/index.html](https://fcsapi.com/chart/index.html)
+- **Documentation:** [fcsapi.com/document/chart-api](https://fcsapi.com/document/chart-api)
+- **Get a free API key:** [fcsapi.com/dashboard](https://fcsapi.com/dashboard)
+
 ## Why FCS Chart?
 
 | Feature | FCS Chart | Other Libraries |
@@ -40,7 +54,7 @@ Lightweight, high-performance **JavaScript charting library** for building inter
 
 ## Demo
 
-See the live chart in action: [FCS API Chart Demo](https://fcsapi.com/crypto-chart)
+See the live chart in action: [FCS API Chart Demo](https://fcsapi.com/chart/index.html)
 
 ## Installation
 
@@ -387,7 +401,7 @@ chart-js/
 ## Documentation & Resources
 
 - [FCS API Documentation](https://fcsapi.com/document) — Full API reference
-- [Chart API Guide](https://fcsapi.com/document/stock-api#chart) — Chart-specific documentation
+- [Chart Library Guide](https://fcsapi.com/document/chart-api) — Chart-specific documentation
 - [FCS API Dashboard](https://fcsapi.com/dashboard) — Manage your API keys
 
 ## Browser Support
