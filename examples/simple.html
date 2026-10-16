@@ -41,10 +41,13 @@
         // For all options, see index.html (Full Example)
 
         const chart = new FCSAPIChart({
-            // REQUIRED (3 settings)
+            // REQUIRED (2 settings)
             container: document.getElementById('fcs_chart'),
             parentid: 'fcs_chartparent',
-            accessKey: 'YOUR_ACCESS_KEY',        // Get from fcsapi.com/dashboard
+
+            // OPTIONAL - Your API key. Leave it commented out to use the free chart (300 candles).
+            // To use your own key, remove the // below and paste your key (get it at fcsapi.com/dashboard)
+            // accessKey: 'YOUR_ACCESS_KEY',
 
             // OPTIONAL - Common settings
             symbol: 'BINANCE:BTCUSDT',           // Symbol to display

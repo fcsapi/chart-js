@@ -40,13 +40,17 @@ Lightweight, high-performance **JavaScript charting library** for building inter
 - **Multi-Market Data** — Forex currency pairs, cryptocurrency (Bitcoin, Ethereum, etc.), and stock market data (NASDAQ, NYSE)
 - **60+ Technical Analysis Indicators** — RSI, MACD, Bollinger Bands, EMA, SMA, Ichimoku Cloud, Stochastic, ATR, VWAP, and more
 - **Professional Drawing Tools** — Trendlines, Fibonacci retracement, horizontal lines, shapes, text annotations, and XABCD patterns
-- **8 Chart Types** — Candlestick, OHLC bars, Line, Area, Heikin-Ashi, Hollow candles, High-Low, Volume candles
+- **9 Chart Types** — Candlestick, OHLC bars, Line, Area, Heikin-Ashi, Hollow candles, High-Low, Volume candles, Renko
 - **Dark & Light Themes** — Customizable color schemes for any UI
 - **Responsive Design** — Optimized for desktop, tablet, and mobile browsers
 - **Multi-Chart Layouts** — Display multiple charts side by side with different symbols or timeframes
 - **Chart Replay Mode** — Replay historical price action for backtesting strategies
 - **Screenshot & Export** — Export charts as images for reports and sharing
 - **Broker Integration** — Add TP/SL/Entry price lines programmatically via API
+- **Broker Spread (Ask/Bid)** — Show your own dealable ask/bid: add a spread or markup per symbol, and change it live with `setAskBid()`
+- **Secure Login Without Exposing Your Key** — Use a domain-locked public key, or a short-lived JWT created on your server, so your access key never appears in the browser
+- **Indicators & Markers from Code** — Add or remove indicators and Buy/Sell markers with `addIndicator()` and `addMarker()`
+- **Symbol Search Control** — Limit the search window to the tabs, exchanges and symbols you choose, and hide the exchange name if you want
 - **Undo/Redo Support** — Full undo/redo for all drawing operations (Ctrl+Z, Ctrl+Y)
 - **Keyboard Shortcuts** — Professional keyboard shortcut support
 - **Timezone Support** — Local, UTC, or custom timezone offsets
@@ -75,15 +79,17 @@ The fastest way to get started — add two lines to your HTML:
 | Version | Status |
 |---------|--------|
 | `@latest` | Recommended — always up to date |
-| `@4.0.3` | Current stable release |
-| `@4.0.2` | Previous stable |
-| `@4.0.1` | Previous stable |
+| `@4.1.1` | Current stable release |
+| `@4.0.4` | Previous stable |
+| `@4.0.3` | Previous stable |
 
 ```html
-<!-- Pin to version 4.0.3 -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fcsapi/chart-js@4.0.3/src/fcsapi-chart.css">
-<script src="https://cdn.jsdelivr.net/gh/fcsapi/chart-js@4.0.3/src/fcsapi-chart.js"></script>
+<!-- Pin to version 4.1.1 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fcsapi/chart-js@4.1.1/src/fcsapi-chart.css">
+<script src="https://cdn.jsdelivr.net/gh/fcsapi/chart-js@4.1.1/src/fcsapi-chart.js"></script>
 ```
+
+> **Tip:** the chart loads its lazy modules (`src/chunks/`) from the same address as `fcsapi-chart.js`, so a pinned version always loads matching files.
 
 ### Install via Git
 
@@ -123,7 +129,7 @@ Get a chart running in under 2 minutes:
         const chart = new FCSAPIChart({
             container: document.getElementById('fcs_chart'),
             parentid: 'fcs_chartparent',
-            accessKey: 'YOUR_API_KEY',
+            // accessKey: 'YOUR_API_KEY',   // optional: without a key the free chart (300 candles) is used
             symbol: 'BINANCE:BTCUSDT',
             period: '1H'
         });
@@ -143,15 +149,62 @@ Get a chart running in under 2 minutes:
 
 ### Required Settings
 
-Only 3 settings are required to create a chart:
+Only 2 settings are required to create a chart:
 
 ```javascript
 const chart = new FCSAPIChart({
     container: document.getElementById('fcs_chart'),  // Chart container element
     parentid: 'fcs_chartparent',                      // Parent container ID
-    accessKey: 'YOUR_API_KEY',                        // Get free key at fcsapi.com
 });
 ```
+
+With no key at all the free chart is used (300 candles). To load more data, add one of the login options below.
+
+### Authentication — choose one
+
+| Option | What goes in the page | When to use |
+|--------|-----------------------|-------------|
+| **Access key** | `accessKey` | Simplest. The key is visible in the browser's network requests |
+| **Public key + Allowed Domains** | `publicKey` only | No backend needed. The chart works only on the websites you allow in [Dashboard > Security](https://fcsapi.com/dashboard/security) |
+| **Public key + access key** | `publicKey` and `accessKey` | Requests are signed with the public key, so the access key does not appear in the network tab. It is still in your page source, so use a JWT if the key must stay secret |
+| **JWT from your server** | `jwt_token` only | Best security. No key at all in the page, the token expires |
+
+```javascript
+const container = document.getElementById('fcs_chart');
+const parentid = 'fcs_chartparent';
+
+// 1) Access key
+new FCSAPIChart({ container, parentid, accessKey: 'YOUR_ACCESS_KEY' });
+
+// 2) Public key (allow your domain in Dashboard > Security > Allowed Domains)
+new FCSAPIChart({ container, parentid, publicKey: 'YOUR_PUBLIC_KEY' });
+
+// 3) JWT created on your server (no accessKey and no publicKey in the page)
+const chart = new FCSAPIChart({ container, parentid, jwt_token: 'JWT_FROM_YOUR_SERVER' });
+```
+
+**How the JWT works:**
+
+1. Your server (never the browser) creates the token: `https://api-v4.fcsapi.com/forex/jwt_token?access_key=YOUR_ACCESS_KEY&expiry=300`. Add `&domain=yoursite.com` to lock the token to your website.
+2. Pass `response.jwt_token` to the chart as `jwt_token`. The chart sends only `jwt_token=<jwt>` with every API request.
+3. The token expires after `response.expires_in` seconds. Get a new one before that and give it to the chart:
+
+```javascript
+chart.updateJWTtoken('new_jwt');
+
+// Example: refresh the token shortly before it expires
+async function refreshJWT() {
+    const r = await (await fetch('/your-backend/jwt-token')).json();   // your backend returns the answer of ...jwt_token?access_key=...
+    if (!r.status) return console.error(r.msg);
+    chart.updateJWTtoken(r.response.jwt_token);
+    setTimeout(refreshJWT, Math.max(10, r.response.expires_in - 30) * 1000);
+}
+refreshJWT();
+```
+
+A page on an Allowed Domain can also call `https://api-v4.fcsapi.com/forex/jwt_token?public_key=YOUR_PUBLIC_KEY` directly (the expiry then comes from Dashboard > Security). Full details are in the [chart documentation](https://fcsapi.com/document/chart-api).
+
+**Extra API parameters:** `url_params: { abc: 1 }` adds `&abc=1` to every API request the chart makes.
 
 ### Chart Settings
 
@@ -234,6 +287,50 @@ const chart = new FCSAPIChart({
 }
 ```
 
+### Broker Spread — Ask/Bid Adjustment
+
+The `askBid` option changes the ask/bid lines and labels so a broker can show their own dealable quote. The candles are never changed. Omit it to show the raw feed quote.
+
+```javascript
+askBid: { base: 'feed', spreadPips: 10 }     // ask +10 pips, bid -10 pips on top of the real market quote
+askBid: { base: 'close', spreadPips: 10 }    // ignore the feed quote, build a 10-pip spread around the close
+askBid: { base: 'feed', spreadPercent: 0.01 } // add 1 percent to each side
+askBid: { base: 'close', spreadPips: 0 }     // no spread: ask and bid on one line
+
+// 15 pips on BTCUSDT, 10 pips on every other symbol
+askBid: {
+    base: 'close',
+    spreadPips: 10,
+    perSymbol: { 'BINANCE:BTCUSDT': { spreadPips: 15 } }
+}
+```
+
+| Field | Description |
+|-------|-------------|
+| `base` | `'feed'` = add your spread to the market ask/bid, `'close'` = build the quote around the candle close, `'raw'` = no adjustment |
+| `spreadPips` / `spreadPercent` / `spread` | Widens each side (pips, fraction of price, or absolute price units) |
+| `markupPips` / `markupPercent` / `markup` | Moves both sides together (rare) |
+| `perSymbol` | Per-symbol rules that override the top-level values, keyed by `EXCHANGE:SYMBOL` |
+
+Change it at runtime with `chart.setAskBid({ base: 'close', spreadPips: 10 })`, or pass `null` to go back to the raw quote.
+
+### Exchange Name & Symbol Search
+
+```javascript
+{
+    hideExchangeAllPlaces: false,    // true = hide the exchange name everywhere (search, OHLC bar, info panel)
+    hideExchangeInOHLC: false,       // true = hide the exchange name only in the OHLC bar
+
+    // Choose what users can find in the symbol search window (null = no limit)
+    searchModalTabs: { fav: 'Fav', forex: 'Forex', crypto: 'Crypto', stock: 'Stocks' },
+    searchAllowSymbols: ['BINANCE:BTCUSDT', 'ONA:EURUSD'],
+    searchExcludeSymbols: ['BINANCE:DOGEUSDT'],
+    searchAllowExchanges: { crypto: ['BINANCE'], stock: { US: ['NASDAQ'], PK: '*' } }
+}
+```
+
+Tab keys: `fav`, `all`, `forex`, `crypto`, `commodity`, `stock`, `dr`, `fund`, `futures`, `indices`, `dex`.
+
 ## API Methods
 
 ### Change Symbol & Timeframe
@@ -251,6 +348,30 @@ chart.setPeriod('4h');               // Change to 4-hour timeframe
 chart.setTheme('light');             // Switch to light theme
 chart.setChartType('line');          // Switch to line chart
 chart.setChartType('candlestick');   // Switch to candlestick chart
+```
+
+### Add Indicators & Markers from Code
+
+```javascript
+// Add an indicator: type is the indicator name, the other fields are its inputs
+const id = await chart.addIndicator({ type: 'Sma', len: 20 });   // returns the indicator id, or null for an unknown type
+await chart.addIndicator({ type: 'Rsi', length: 14 });
+await chart.addIndicator({ type: 'Macd', fast_length: 12, slow_length: 26, signal_length: 9 });
+chart.removeIndicator(id);
+
+// Put a Buy / Sell marker on a candle (timestamp in seconds, or a candle index)
+chart.addMarker({ timestamp: 1791388800, price: 85200, type: 'buy', text: 'Order 1', id: 'order-1' });
+chart.removeMarker('order-1');
+chart.clearMarkers();
+```
+
+Marker `type` examples: `buy`, `sell`, `long`, `short`, `entry`, `exit`, `tp`, `sl`, `arrow-up`, `arrow-down`, `star`, `flag`.
+
+### Broker Spread & JWT at Runtime
+
+```javascript
+chart.setAskBid({ base: 'close', spreadPips: 10 });  // change the ask/bid spread live (null = raw feed quote)
+chart.updateJWTtoken('new_jwt');                     // give the chart a fresh JWT (only when you use jwt_token)
 ```
 
 ### Export Chart as Image
@@ -334,6 +455,7 @@ chart.clearHorizontalLines();
 | `heikin-ashi` | Heikin-Ashi smoothed candles |
 | `high-low` | High-Low range chart |
 | `volume-candles` | Volume-weighted candle chart |
+| `renko` | Renko chart (price movement bricks) |
 
 ## Technical Indicators (60+)
 
