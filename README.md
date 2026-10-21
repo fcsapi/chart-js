@@ -79,14 +79,14 @@ The fastest way to get started — add two lines to your HTML:
 | Version | Status |
 |---------|--------|
 | `@latest` | Recommended — always up to date |
-| `@4.1.1` | Current stable release |
+| `@4.1.2` | Current stable release |
 | `@4.0.4` | Previous stable |
 | `@4.0.3` | Previous stable |
 
 ```html
-<!-- Pin to version 4.1.1 -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fcsapi/chart-js@4.1.1/src/fcsapi-chart.css">
-<script src="https://cdn.jsdelivr.net/gh/fcsapi/chart-js@4.1.1/src/fcsapi-chart.js"></script>
+<!-- Pin to version 4.1.2 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fcsapi/chart-js@4.1.2/src/fcsapi-chart.css">
+<script src="https://cdn.jsdelivr.net/gh/fcsapi/chart-js@4.1.2/src/fcsapi-chart.js"></script>
 ```
 
 > **Tip:** the chart loads its lazy modules (`src/chunks/`) from the same address as `fcsapi-chart.js`, so a pinned version always loads matching files.
